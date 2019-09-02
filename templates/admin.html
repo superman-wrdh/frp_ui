@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>admin</title>
+    <style type="text/css">
+        body { background: #2b2b2b;
+               font-family: Verdana, Arial, Helvetica, sans-serif;
+               font-size: 14px;color: #00ff00;
+               line-height:15px;
+              }
+    </style>
+</head>
+
+<body>
+<div style="width: 80%;height:auto;margin: auto auto;">
+    <div style="height: 60px;border: 1px solid green;margin: auto auto">
+        <p align="center" style="font-size: 18px;align-content: center">frp ui v0.1-{{message}}
+            <span style="float: right">welcome:
+                <span style="color: darkorchid">
+                    {{user}}
+                </span>
+            </span>
+        </p>
+    </div>
+
+        {% for d in arr %}
+            <div style="position:relative;width: 300px;align-items: center;height: 260px;float: left;border: 1px dotted #07f61d;padding: 5px 5px;margin: 5px 5px">
+
+             name:<span style="color: #e90b44;font-size: 18px;">{{ d[0] }}</span>
+             <form action="/update_config" method="post">
+             <input type="hidden" name="section" value="{{ d[0] }}">
+             {% for i in d[1] %}
+                <p >{{ i[0] }}:<input name="{{ i[0] }}" value="{{ i[1] }}" style="float: right;background: #A8A8A8;color:#1610e9"></p>
+             {% end %}
+
+             <div  style="position: absolute;bottom: 0px;left:130px;padding-bottom: 10px;">
+                 <input align="center" type="submit" value="update" style="font-size: 18px;background: #245a71;">
+             </div>
+             </form>
+
+        </div>
+        {% end %}
+
+
+</div>
+</body>
+</html>

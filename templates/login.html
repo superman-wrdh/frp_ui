@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+</head>
+<body>
+<p align="center"></p>
+<div style="width: 270px;height: 170px;margin: auto auto;border: 1px solid gray;padding: 10px 10px">
+    <p align="center"> frp client config manager v 0.1</p>
+    <form action="/login" method="post">
+        <p>用户名:&nbsp;&nbsp;<input name="username" style="width: 180px"></p>
+        <p>密&nbsp;&nbsp;&nbsp;&nbsp;码:&nbsp;&nbsp;<input type="password" name="password" style="width: 180px"></p>
+        <p align="center"><input type="submit" value="登录" style="width: 100px"></p>
+    </form>
+    {% if message %}
+    <p>{{message}}</p>
+    {% end %}
+</div>
+</body>
+</html>
