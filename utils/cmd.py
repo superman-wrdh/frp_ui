@@ -24,17 +24,31 @@ def cmd(command):
     return cr
 
 
-if __name__ == '__main__':
-    # result = cmd("ipconfig")
+def get_run_info():
+    import re
     result = cmd("ps -ef|grep frpc.ini")
-    # result = cmd("ipconfig")
     result = result.split("\n")
-    print(result)
+    data = {
+        "info": None,
+        "pid": None,
+        "is_run": False
+    }
     pss = [i for i in result if str(i).strip() and not str(i).count("grep") > 0]
     if len(pss) > 0:
-        ts = [i for i in pss[0].split(" ") if i.strip()]
+        ts = re.split(" +", pss[0].strip())
         pid = ts[1] if len(ts) > 1 else None
-        if pid:
-            kill_cmd = "kill {}".format(pid)
-            print(kill_cmd)
-            cmd(kill_cmd)
+        data.update({
+            "info": pss[0].strip(),
+            "pid": pid,
+            "is_run": True
+        })
+    return data
+
+
+def kill_process(pid):
+    cmd("kill -9 {}".format(pid))
+
+
+if __name__ == '__main__':
+    d = get_run_info()
+    pass

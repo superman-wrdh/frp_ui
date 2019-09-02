@@ -7,6 +7,7 @@ from handlers import authenticated
 from utils.parse_config import ConfigOperator
 from base import BASE_PATH
 from base import SYSTEM_CONFIG_FILE
+from utils.cmd import get_run_info
 
 
 def cookie_authenticated(method):
@@ -60,7 +61,9 @@ class AdminHandler(RestHandler):
     @cookie_authenticated
     def get(self):
         user = self.get_current_user()
-        return self.render(template_name="admin.html", user=user, message="管理员", arr=self.get_all_client_config())
+        run_info = get_run_info()
+        return self.render(template_name="admin.html", user=user, message="管理员", arr=self.get_all_client_config(),
+                           run_info=run_info)
 
 
 class LoginHandler(RestHandler):
