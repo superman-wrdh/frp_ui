@@ -57,14 +57,10 @@ class AdminHandler(RestHandler):
         except Exception as e:
             return []
 
+    @cookie_authenticated
     def get(self):
-        token = self.get_cookie("admin_authentication")
-        if token:
-            user = cache.get(token)
-            if user:
-                return self.render(template_name="admin.html", user=user, message="管理员",
-                                   arr=self.get_all_client_config())
-        return self.redirect(url="/login")
+        user = self.get_current_user()
+        return self.render(template_name="admin.html", user=user, message="管理员", arr=self.get_all_client_config())
 
 
 class LoginHandler(RestHandler):
@@ -104,6 +100,7 @@ class FrpConfigHandler(RestHandler):
         except Exception as e:
             pass
 
+    @cookie_authenticated
     def post(self):
         section = self.get_argument("section")
         all_args = self.request.body_arguments

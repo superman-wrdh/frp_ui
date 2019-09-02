@@ -1,6 +1,6 @@
 import json
 import traceback
-
+from utils.local_cache import cache
 import tornado.web
 
 import functools
@@ -22,6 +22,13 @@ class MyAppException(tornado.web.HTTPError):
 
 
 class RestHandler(tornado.web.RequestHandler):
+
+    def get_current_user(self):
+        token = self.get_cookie("admin_authentication")
+        if token:
+            user = cache.get(token)
+            return user
+        return None
 
     @property
     def request_body(self):
